@@ -31,6 +31,7 @@ body {
     z-index: 0;
     opacity: 0;
     transition: opacity 0.5s ease;
+    pointer-events: none;
 }
 
 .fullscreen-video.active {
@@ -116,71 +117,5 @@ body::before {
     font-size: 3rem;
     font-weight: 600;
     color: #fff;
-    margin: 0 0 0.5rem 0;
-}
-
-.subtitle {
-    font-size: 0.85rem;
-    color: #777;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin: 0 0 2rem 0;
-}
-
-.subpages-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    align-items: center;
-}
-
-.subpage-card {
-    position: relative;
-    z-index: 1;
-    width: min(92vw, 320px);
-    border: 1px solid #2f2f2f;
-    padding: 14px 16px;
-    background: #0d0d0d;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.15s ease;
-    cursor: pointer;
-}
-
-.subpage-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 0;
-}
-
-.subpage-card > * {
-    position: relative;
-    z-index: 1;
-}
-
-.subpage-card span:first-child {
-    font-size: 0.95rem;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    white-space: nowrap;
-}
-
-.subpage-card:hover {
-    border-color: #5f5f5f;
-    background: rgba(26, 26, 26, 0.95);
-    transform: translateY(-2px);
-}
-
-.uid {
-    font-size: 0.85rem;
-    color: #666;
-    font-weight: 400;
+    margin: 0;
 }
