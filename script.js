@@ -4,8 +4,21 @@ const videoPlayer = document.getElementById('videoPlayer');
 
 let rot = 0;
 
+const videos = [
+    'ok/1.mp4',
+    'ok/2.mp4',
+    'ok/3.mp4',
+    'ok/4.mp4',
+    'ok/5.mp4'
+];
+
+function getRandomVideo() {
+    return videos[Math.floor(Math.random() * videos.length)];
+}
+
 previewOverlay.addEventListener('click', () => {
     previewOverlay.classList.add('hidden');
+    videoPlayer.src = getRandomVideo();
     videoPlayer.classList.add('active');
     videoPlayer.play();
 });
