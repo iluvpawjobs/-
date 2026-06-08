@@ -4,79 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fragile.pet</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-
-        .video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .video-blur {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            filter: blur(10px);
-            object-fit: cover;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .image-container {
-            max-width: 90%;
-            max-height: 90%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.png">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="video-container">
-        <video class="video-blur" autoplay muted loop>
-            <source src="kitty.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
+    <div class="preview-overlay" id="preview">
+        <p class="preview-hint">click to view</p>
     </div>
 
-    <div class="content">
-        <div class="image-container">
-            <img src="atmos.png" alt="atmos">
+    <video class="fullscreen-video" id="videoPlayer" src="kitty.mov" muted loop></video>
+
+    <audio id="audioPlayer" src="song.mp3" loop></audio>
+
+    <div class="container">
+        <h1 class="title">fragile.pet</h1>
+        <p class="subtitle">by @justuno</p>
+
+        <div class="subpages-list">
+            <a href="https://fragile.pet/justuno" class="subpage-card">
+                <span>@justuno</span>
+                <span class="uid">UID 1</span>
+            </a>
+
+            <a href="https://fragile.pet/strawberry/" class="subpage-card">
+                <span>@strawberry</span>
+                <span class="uid">UID 2</span>
+            </a>
         </div>
+    </div>
+
+    <div class="cursor-dot" id="cursorDot">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" />
+        </svg>
     </div>
 </body>
 </html>
