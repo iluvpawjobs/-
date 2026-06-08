@@ -555,6 +555,8 @@
         </div>
     </div>
 
+    <audio id="audioPlayer"></audio>
+
     <div class="popup-overlay" id="helpOverlay"></div>
     <div class="popup-window" id="helpWindow" style="display: none; top: 150px; left: 150px;">
         <div class="popup-title-bar">
@@ -654,79 +656,71 @@
 
         // Music Player Functionality
         const songs = [
-        'Song 1',
-        'Song 2',
-        'Song 3',
-        'Song 4',
-        'Song 5'
+            { name: 'Song 1', src: 'song1.mp3' },
+            { name: 'Song 2', src: 'song2.mp3' },
+            { name: 'Song 3', src: 'song3.mp3' },
+            { name: 'Song 4', src: 'song4.mp3' },
+            { name: 'Song 5', src: 'song5.mp3' }
         ];
 
+        const audioPlayer = document.getElementById('audioPlayer');
         let currentSongIndex = 0;
         let isPlaying = false;
-        let currentTime = 0;
-        const songDuration = 180; // 3 minutes in seconds
+
+        // Update progress bar as audio plays
+        audioPlayer.addEventListener('timeupdate', function() {
+            if (audioPlayer.duration) {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }
+        });
+
+        // Handle when song ends
+        audioPlayer.addEventListener('ended', function() {
+            nextSong();
+        });
 
         function updateDisplay() {
-        document.getElementById('songDisplay').textContent = songs[currentSongIndex];
-        currentTime = 0;
-        updateProgressBar();
-        }
-
-        function updateProgressBar() {
-        const progress = (currentTime / songDuration) * 100;
-        document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('songDisplay').textContent = songs[currentSongIndex].name;
+            audioPlayer.src = songs[currentSongIndex].src;
+            document.getElementById('progressFill').style.width = '0%';
         }
 
         function seekSong(event) {
-        const progressBar = event.currentTarget;
-        const rect = progressBar.getBoundingClientRect();
-        const clickX = event.clientX - rect.left;
-        const percentage = clickX / rect.offsetWidth;
-        currentTime = percentage * songDuration;
-        updateProgressBar();
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const percentage = clickX / rect.offsetWidth;
+            audioPlayer.currentTime = percentage * audioPlayer.duration;
         }
 
         function togglePlayPause() {
-        isPlaying = !isPlaying;
-        const btn = document.getElementById('playPauseBtn');
-        btn.textContent = isPlaying ? '⏸' : '▶';
-
-        if (isPlaying) {
-        simulatePlayback();
-        }
-        }
-
-        function simulatePlayback() {
-        if (!isPlaying) return;
-
-        currentTime += 0.1;
-        if (currentTime >= songDuration) {
-        nextSong();
-        return;
-        }
-
-        updateProgressBar();
-        setTimeout(simulatePlayback, 100);
+            const btn = document.getElementById('playPauseBtn');
+            if (isPlaying) {
+                audioPlayer.pause();
+                isPlaying = false;
+                btn.textContent = '▶';
+            } else {
+                audioPlayer.play();
+                isPlaying = true;
+                btn.textContent = '⏸';
+            }
         }
 
         function nextSong() {
-        currentSongIndex = (currentSongIndex + 1) % songs.length;
-        updateDisplay();
-        if (!isPlaying) {
-        isPlaying = true;
-        document.getElementById('playPauseBtn').textContent = '⏸';
-        simulatePlayback();
-        }
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            updateDisplay();
+            if (isPlaying) {
+                audioPlayer.play();
+            }
         }
 
         function previousSong() {
-        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-        updateDisplay();
-        if (!isPlaying) {
-        isPlaying = true;
-        document.getElementById('playPauseBtn').textContent = '⏸';
-        simulatePlayback();
-        }
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            updateDisplay();
+            if (isPlaying) {
+                audioPlayer.play();
+            }
         }
 
         // Initialize display
