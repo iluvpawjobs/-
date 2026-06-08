@@ -556,6 +556,7 @@
     </div>
 
     <audio id="audioPlayer"></audio>
+    <audio id="soundEffect"></audio>
 
     <div class="popup-overlay" id="helpOverlay"></div>
     <div class="popup-window" id="helpWindow" style="display: none; top: 150px; left: 150px;">
@@ -607,23 +608,12 @@
     </div>
 
     <script>
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const soundEffectAudio = document.getElementById('soundEffect');
+        soundEffectAudio.src = 'preset.wav';
 
         function playSound() {
-        const now = audioContext.currentTime;
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-
-        oscillator.frequency.setValueAtTime(800, now);
-        oscillator.frequency.setValueAtTime(600, now + 0.1);
-        gainNode.gain.setValueAtTime(0.3, now);
-        gainNode.gain.setValueAtTime(0, now + 0.1);
-
-        oscillator.start(now);
-        oscillator.stop(now + 0.1);
+            soundEffectAudio.currentTime = 0;
+            soundEffectAudio.play();
         }
 
         function openHelpPopup() {
