@@ -37,6 +37,8 @@ body::before {
     justify-content: center;
     z-index: 9999;
     cursor: pointer;
+    opacity: 1;
+    visibility: visible;
     transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
@@ -130,7 +132,6 @@ body::before {
     align-items: center;
     justify-content: space-between;
     transition: all 0.15s ease;
-    cursor: pointer;
 }
 
 .subpage-card::before {

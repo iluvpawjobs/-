@@ -1,15 +1,6 @@
-const previewOverlay = document.getElementById('preview');
 const cursor = document.getElementById('cursorDot');
-const audioPlayer = document.getElementById('audioPlayer');
 
 let rotation = 0;
-
-function initPreview() {
-    previewOverlay.addEventListener('click', () => {
-        previewOverlay.classList.add('hidden');
-        audioPlayer.play();
-    });
-}
 
 function addCursorTrail(x, y) {
     const trail = document.createElement('div');
@@ -44,7 +35,8 @@ function rotateCursor() {
 }
 
 function setupInteractiveElements() {
-    document.querySelectorAll('a').forEach(el => {
+    const interactiveElements = document.querySelectorAll('a, button, .progress-slider, .progress-container');
+    interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursor.querySelector('svg').style.transform = `scale(1.4) rotate(${rotation}deg)`;
         });
@@ -54,13 +46,8 @@ function setupInteractiveElements() {
     });
 }
 
-function initCursor() {
-    rotateCursor();
-    setupInteractiveElements();
-}
-
 document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
 document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
 
-initPreview();
-initCursor();
+rotateCursor();
+setupInteractiveElements();
