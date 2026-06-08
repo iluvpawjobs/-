@@ -1,6 +1,5 @@
 const previewOverlay = document.getElementById('preview');
 const cursor = document.getElementById('cursorDot');
-const audioPlayer = document.getElementById('audioPlayer');
 const videoPlayer = document.getElementById('videoPlayer');
 
 let rot = 0;
@@ -9,7 +8,6 @@ previewOverlay.addEventListener('click', () => {
     previewOverlay.classList.add('hidden');
     videoPlayer.classList.add('active');
     videoPlayer.play();
-    audioPlayer.play();
 });
 
 document.addEventListener('mousemove', (e) => {
@@ -41,15 +39,6 @@ function rotateCursor() {
     requestAnimationFrame(rotateCursor);
 }
 rotateCursor();
-
-document.querySelectorAll('a').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursor.querySelector('svg').style.transform = `scale(1.4) rotate(${rot}deg)`;
-    });
-    el.addEventListener('mouseleave', () => {
-        cursor.querySelector('svg').style.transform = `rotate(${rot}deg)`;
-    });
-});
 
 document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
 document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
